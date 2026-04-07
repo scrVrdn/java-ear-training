@@ -1,5 +1,7 @@
 package io.github.scrvrdn.config;
 
+import java.util.Random;
+
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -9,8 +11,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"midi"})
+@ComponentScan(basePackages = {"containers", "midi", "service"})
 public class AppConfig {
+
+    @Bean
+    public Random random() {
+        return new Random();
+    }
 
     @Bean
     public Sequence sequence() throws Exception {

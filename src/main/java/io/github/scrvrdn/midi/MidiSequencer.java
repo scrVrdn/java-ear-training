@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.sound.midi.MidiEvent;
 
-import io.github.scrvrdn.dto.TrackRequest;
 
 public interface MidiSequencer {
 

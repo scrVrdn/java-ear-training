@@ -3,6 +3,7 @@ package io.github.scrvrdn.midi.impl;
 import java.util.List;
 
 import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Track;
 
@@ -13,8 +14,9 @@ import io.github.scrvrdn.midi.MidiSequencer;
 @Component
 public class MidiSequencerImpl implements MidiSequencer {
 
+
     private Track cachedTrack;
-    private Sequencer sequencer;
+    private final Sequencer sequencer;
 
     public MidiSequencerImpl(Sequencer sequencer) {
         this.sequencer = sequencer;
@@ -36,6 +38,10 @@ public class MidiSequencerImpl implements MidiSequencer {
 
     @Override
     public void addTrack(List<MidiEvent> events) {
+        if (events == null || events.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
         if (cachedTrack != null) {
             sequencer.getSequence().deleteTrack(cachedTrack);
         }
@@ -50,12 +56,20 @@ public class MidiSequencerImpl implements MidiSequencer {
 
     @Override
     public void open() throws Exception {
+        if (sequencer == null) {
+            throw new MidiUnavailableException("No sequencer found.");
+        }
+
         sequencer.open();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
     }
 
     @Override
     public void close() {
+        if (sequencer.isRunning()) {
+            sequencer.stop();
+        }
+        
         sequencer.close();
     }
 
