@@ -1,0 +1,13 @@
+.interval-button
+{
+    -fx-pref-width: 100;
+    -fx-pref-height: 50;
+    -fx-text-alignment: center;
+}
+
+.wrong-answer
+{
+    -fx-background-color: #d40e0e;
+    background-color: #d40e0e;
+    -fx-text-fill: white;
+}

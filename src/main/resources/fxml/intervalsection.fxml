@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootPane" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.scrvrdn.eartraining.controllers.IntervalSectionController">
+    <Button fx:id="goToSettingsButton" text="☰" onAction="#handleGoToSettingsButton"/>
+    <Button fx:id="backToMainMenuButton" text="Back to Main Menu" onAction="#handleBackToMainMenuButton"/>
+    <Button fx:id="nextIntervalButton" text="_Next" mnemonicParsing="true" onAction="#handleNextIntervalButton"/>
+    <Button fx:id="replayIntervalButton" text="_Replay" mnemonicParsing="true" onAction="#handleReplayIntervalButton"/>
+    <fx:include fx:id="answerButtons" source="intervalbuttonpanel.fxml"/>
+</VBox>
