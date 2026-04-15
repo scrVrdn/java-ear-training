@@ -5,6 +5,8 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 
 import io.github.scrvrdn.eartraining.containers.RandomBag;
+import io.github.scrvrdn.eartraining.containers.RandomDirectionBag;
+import io.github.scrvrdn.eartraining.containers.RandomIntervalBag;
 import io.github.scrvrdn.eartraining.domain.Direction;
 import io.github.scrvrdn.eartraining.domain.IntervalType;
 import io.github.scrvrdn.eartraining.dto.TrackRequest;
@@ -20,7 +22,7 @@ public class IntervalService implements MusicObjectService<IntervalType> {
 
     private IntervalType cachedInterval;
 
-    public IntervalService(Random rng, RandomBag<Direction> directionBag, RandomBag<IntervalType> intervalBag, SettingsService<IntervalType> settings) {
+    public IntervalService(Random rng, RandomDirectionBag directionBag, RandomIntervalBag intervalBag, SettingsService<IntervalType> settings) {
         this.rng = rng;
         this.directionBag = directionBag;
         this.intervalBag = intervalBag;

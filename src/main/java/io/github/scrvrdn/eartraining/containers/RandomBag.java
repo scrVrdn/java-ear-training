@@ -1,16 +1,18 @@
 package io.github.scrvrdn.eartraining.containers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 
 public abstract class RandomBag<T> {
     private final Random rng;
-    private final List<T> bag = new ArrayList<>();
+    private final List<T> bag;
 
-    RandomBag(Random rng) {
+    RandomBag(Random rng, int capacity) {
         this.rng = rng;
+        this.bag = new ArrayList<>(capacity);
     }
 
 
@@ -23,7 +25,11 @@ public abstract class RandomBag<T> {
     }
 
     public void add(T bagItem) {
-       bag.add(bagItem);
+        if (bag.contains(bagItem)) {
+            return;
+        }
+
+        bag.add(bagItem);
     }
 
     public void clear() {
@@ -31,7 +37,7 @@ public abstract class RandomBag<T> {
     }
 
     public List<T> toList() {
-        return new ArrayList<>(bag);
+        return Collections.unmodifiableList(bag);
     }
 
     public void remove(T bagItem) {
@@ -45,4 +51,5 @@ public abstract class RandomBag<T> {
     public boolean isEmpty() {
         return bag.isEmpty();
     }
+
 }

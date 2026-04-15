@@ -5,6 +5,18 @@
     -fx-text-alignment: center;
 }
 
+.pitch-label
+{   -fx-pref-width: 30;
+    -fx-pref-height: 25;
+    -fx-text-alignment: left;
+}
+
+.range-spinner
+{
+    -fx-pref-width: 60;
+    -fx-pref-height: 25;
+}
+
 .wrong-answer
 {
     -fx-background-color: #d40e0e;

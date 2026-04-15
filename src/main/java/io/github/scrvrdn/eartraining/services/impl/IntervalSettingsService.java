@@ -1,7 +1,10 @@
 package io.github.scrvrdn.eartraining.services.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import io.github.scrvrdn.eartraining.containers.RandomBag;
 import io.github.scrvrdn.eartraining.containers.RandomDirectionBag;
 import io.github.scrvrdn.eartraining.containers.RandomIntervalBag;
 import io.github.scrvrdn.eartraining.domain.Direction;
@@ -13,9 +16,9 @@ import io.github.scrvrdn.eartraining.services.SettingsService;
 @Service
 public class IntervalSettingsService implements SettingsService<IntervalType> {
 
-    private final RandomDirectionBag directionBag;
-    private final RandomIntervalBag intervalBag;
-    private final MidiPlayerService midiSequencer;
+    private final RandomBag<Direction> directionBag;
+    private final RandomBag<IntervalType> intervalBag;
+    private final MidiPlayerService midiService;
     private int maxMidiValue;
     private int minMidiValue;
 
@@ -24,7 +27,7 @@ public class IntervalSettingsService implements SettingsService<IntervalType> {
     public IntervalSettingsService(RandomDirectionBag directionBag, RandomIntervalBag intervalBag, MidiPlayerService midiSequencer) {
         this.directionBag = directionBag;
         this.intervalBag = intervalBag;
-        this.midiSequencer = midiSequencer;
+        this.midiService = midiSequencer;
         
         this.currentPreset = new Preset<>();
 
@@ -45,11 +48,10 @@ public class IntervalSettingsService implements SettingsService<IntervalType> {
         readDirectionsFromPreset(preset);
         maxMidiValue = preset.getMaxMidiValue();
         minMidiValue = preset.getMinMidiValue();
-        midiSequencer.setTempo(preset.getTempoInBPM());
+        midiService.setTempo(preset.getTempoInBPM());
     }
 
     private void readIntervalsFromPreset(Preset<IntervalType> preset) {
-        intervalBag.clear();
         for (IntervalType interval : preset.getAll()) {
             intervalBag.add(interval);
         }
@@ -60,11 +62,10 @@ public class IntervalSettingsService implements SettingsService<IntervalType> {
         currentPreset.addAllDirections(directionBag.toList());
         currentPreset.setMaxMidiValue(maxMidiValue);
         currentPreset.setMinMidiValue(minMidiValue);
-        currentPreset.setTempoInBPM(midiSequencer.getTempo());
+        currentPreset.setTempoInBPM(midiService.getTempo());
     }
 
     private void readDirectionsFromPreset(Preset<IntervalType> preset) {
-        directionBag.clear();
         for (Direction dir : preset.getAllDirections()) {
             directionBag.add(dir);
         }
@@ -77,10 +78,14 @@ public class IntervalSettingsService implements SettingsService<IntervalType> {
 
     @Override
     public void addAll() {
-        intervalBag.clear();
-        for (IntervalType interval : IntervalType.values()) {
+        for (IntervalType interval : IntervalType.VALUES) {
             intervalBag.add(interval);
         }
+    }
+
+    @Override
+    public List<IntervalType> getAll() {
+        return intervalBag.toList();
     }
 
     @Override
@@ -90,10 +95,14 @@ public class IntervalSettingsService implements SettingsService<IntervalType> {
 
     @Override
     public void addAllDirecions() {
-        directionBag.clear();
-        for (Direction dir : Direction.values()) {
+        for (Direction dir : Direction.VALUES) {
             directionBag.add(dir);
         }
+    }
+
+    @Override
+    public List<Direction> getAllDirections() {
+        return directionBag.toList();
     }
 
     @Override
@@ -137,8 +146,12 @@ public class IntervalSettingsService implements SettingsService<IntervalType> {
     }
 
     @Override
-    public void setTempo(float bmp) {
-        midiSequencer.setTempo(bmp);
+    public float getTempo() {
+        return midiService.getTempo();
     }
-    
+
+    @Override
+    public void setTempo(float bmp) {
+        midiService.setTempo(bmp);
+    }
 }

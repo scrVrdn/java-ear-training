@@ -9,7 +9,7 @@ import io.github.scrvrdn.eartraining.domain.IntervalType;
 @Component
 public final class RandomIntervalBag extends RandomBag<IntervalType> {
     public RandomIntervalBag(Random rng) {
-        super(rng);
+        super(rng, IntervalType.VALUES.length);
     }
   
 }

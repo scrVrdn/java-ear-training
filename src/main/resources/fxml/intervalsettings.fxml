@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootPane" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.scrvrdn.eartraining.controllers.IntervalSettingsController">
+<VBox fx:id="intervalSettings" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.scrvrdn.eartraining.controllers.IntervalSettingsController">
     <Button fx:id="backToExerciseSectionButton" text="↩" onAction="#handleBackToExerciseSectionButton"/>
     <Button fx:id="backToMainMenuButton" text="Back to Main Menu" onAction="#handleBackToMainMenuButton"/>
+    <HBox>
+        <fx:include fx:id="directions" source="directionspanel.fxml"/>
+        <fx:include fx:id="pitchRange" source="pitchrangepanel.fxml"/>
+        <fx:include fx:id="tempo" source="temposlider.fxml"/>
+    </HBox>
+    <Separator/>
+    <fx:include fx:id="intervalTypePane" source="intervaltypesettingspanel.fxml"/>
 </VBox>

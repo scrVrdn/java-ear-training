@@ -16,17 +16,17 @@ public class Preset<T> {
 
     
     public Set<T> getAll() {
-        System.out.println("before getting: " + musicObjects.size());
+        
         return Collections.unmodifiableSet(musicObjects);
     }
 
     public void addAll(List<T> list) {
         musicObjects.clear();
         for (T musicObject : list) {
-            System.out.println("adding intervals: " + musicObject);
+            
             musicObjects.add(musicObject);
         }
-        System.out.println("after adding " + musicObjects.size());
+        
     }
 
     public Set<Direction> getAllDirections() {

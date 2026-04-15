@@ -13,9 +13,31 @@ public class IntervalSettingsController {
     @FXML private Button backToMainMenuButton;
     
     private final SceneManager sceneManager;
+    private final DirectionsSettingsController directionsSettings;
+    private final IntervalTypeSettingsController intervalSettings;
+    private final PitchRangeController pitchRangeController;
+    private final TempoSliderController tempoController;
 
-    public IntervalSettingsController(SceneManager sceneManager) {
+    public IntervalSettingsController(
+        SceneManager sceneManager,
+        DirectionsSettingsController directionsSettings,
+        IntervalTypeSettingsController intervalSettings,
+        PitchRangeController pitchRangeController,
+        TempoSliderController tempoController
+    ) {
         this.sceneManager = sceneManager;
+        this.directionsSettings = directionsSettings;
+        this.intervalSettings = intervalSettings;
+        this.pitchRangeController = pitchRangeController;
+        this.tempoController = tempoController;
+    }
+
+    @FXML
+    private void initialize() {
+        directionsSettings.loadDirections();
+        intervalSettings.loadIntervals();
+        pitchRangeController.load();
+        tempoController.loadTempo();
     }
 
     @FXML

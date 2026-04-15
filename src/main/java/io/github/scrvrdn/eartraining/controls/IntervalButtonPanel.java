@@ -1,7 +1,6 @@
 package io.github.scrvrdn.eartraining.controls;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -108,8 +107,7 @@ public class IntervalButtonPanel {
         Button button = buttons.get(interval);
         if (!button.getStyleClass().contains("wrong-answer")) {
             button.getStyleClass().add("wrong-answer");
-        }
-        
+        }        
     }
 
     @FXML

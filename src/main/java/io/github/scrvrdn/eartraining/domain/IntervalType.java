@@ -22,6 +22,8 @@ public enum IntervalType {
     AUGMENTED_ELEVENTH(18),
     PERFECT_TWELFTH(19);
 
+    public static final IntervalType[] VALUES = IntervalType.values();
+    
     private final int semitones;
 
     IntervalType(int semitones) {
