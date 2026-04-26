@@ -1,12 +1,10 @@
 package io.github.scrvrdn.eartraining.domain;
 
-import java.util.NoSuchElementException;
-
 public enum PitchClass {
     C("C"),
-    C_SHARP("C\\u266F"),
+    C_SHARP("C\u266F"),
     D("D"),
-    E_FLAT("E\\u266D"),
+    E_FLAT("E\u266D"),
     E("E"),
     F("F"),
     F_SHARP("F\u266F"),

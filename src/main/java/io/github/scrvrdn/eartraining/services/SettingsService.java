@@ -1,9 +1,9 @@
 package io.github.scrvrdn.eartraining.services;
 
-import java.util.List;
+import java.util.Set;
 
 import io.github.scrvrdn.eartraining.domain.Direction;
-import io.github.scrvrdn.eartraining.dto.Preset;
+import io.github.scrvrdn.eartraining.model.PresetModel;
 
 public interface SettingsService<T> {
 
@@ -14,19 +14,24 @@ public interface SettingsService<T> {
 
     void add(T type);
     void addAll();
-    List<T> getAll();
+    Set<T> getAll();
     void remove(T type);
     void removeAll();
+    boolean isEmpty();
 
     void addDirection(Direction direction);
     void addAllDirecions();
-    List<Direction> getAllDirections();
+    Set<Direction> getAllDirections();
     void removeDirection(Direction direction);
     void removeAllDirections();
+    boolean directionsAreEmpty();
 
     float getTempo();
     void setTempo(float bmp);
 
-    void readFromPreset(Preset<T> preset);
-    void writeToPreset();
+    void loadPresetById(int id);
+    void loadFallbackPreset();
+    void writeToCurrentPreset();
+    void writeToPresetById(int id);
+    PresetModel writeToNewPreset(String name);
 }

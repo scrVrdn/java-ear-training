@@ -1,5 +1,8 @@
 package io.github.scrvrdn.eartraining.controllers;
 
+import java.util.Set;
+import java.util.function.Predicate;
+
 import org.springframework.stereotype.Controller;
 
 import io.github.scrvrdn.eartraining.controls.DirectionsPanel;
@@ -29,8 +32,8 @@ public class DirectionsSettingsController {
     }
 
     void loadDirections() {
-        for (Direction dir : settingsService.getAllDirections()) {
-            directions.toggleCheckBox(dir);
-        }
+        Set<Direction> dirSet = settingsService.getAllDirections();
+        Predicate<Direction> predicate = dir -> dirSet.contains(dir);
+        directions.toggleCheckBoxes(predicate);
     }
 }

@@ -1,7 +1,14 @@
-.interval-button
+.answer-button
 {
     -fx-pref-width: 100;
     -fx-pref-height: 50;
+    -fx-text-alignment: center;
+}
+
+.standard-button
+{
+    -fx-pref-width: 70;
+    -fx-pref-height: 10;
     -fx-text-alignment: center;
 }
 

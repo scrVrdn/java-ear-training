@@ -74,11 +74,19 @@ public class PitchRangePanel {
     }
 
     public void setMaxPitch(int midiValue) {
+        if (midiValue > MAX_MIDI_VALUE) {
+            throw new IllegalArgumentException("The midi value must be less or equal to " + MAX_MIDI_VALUE);
+        }
+        
         maxPitchSpinner.getValueFactory().setValue(midiValue);
         maxPitchLabel.setText(getPitchName(midiValue));
     }
 
     public void setMinPitch(int midiValue) {
+        if (midiValue < MIN_MIDI_VALUE) {
+            throw new IllegalArgumentException("The midi value must be greater or equal to " + MIN_MIDI_VALUE);
+        }
+        
         minPitchSpinner.getValueFactory().setValue(midiValue);
         minPitchLabel.setText(getPitchName(midiValue));
     }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="presets" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.scrvrdn.eartraining.controllers.PresetController">
+    <Label text="Presets">
+      <padding>
+         <Insets top="10.0" bottom="10.0"/>
+      </padding>
+    </Label>
+    <HBox>
+        <Button fx:id="editButton" onAction="#edit">
+            <tooltip>
+                <Tooltip text="Rename selected preset" />
+            </tooltip>
+        </Button>
+        <ComboBox fx:id="presetComboBox" onAction="#loadPresetWithRefresh" prefHeight="25.0" minWidth="230.0" />
+    </HBox>
+    
+    <HBox spacing="2.0">
+        <Button fx:id="saveButton" onAction="#save" text="Save" />
+        <Button fx:id="saveAsButton" onAction="#saveAs" text="Save As" />
+        <Button fx:id="discardButton" onAction="#loadPresetWithRefresh" text="Discard Changes" />
+        <Button fx:id="deleteButton" onAction="#delete" text="Delete" />
+      <padding>
+         <Insets top="10.0" />
+      </padding>
+    </HBox>
+</VBox>

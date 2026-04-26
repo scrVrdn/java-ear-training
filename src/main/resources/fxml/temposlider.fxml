@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 
 <VBox fx:id="tempo" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.scrvrdn.eartraining.controllers.TempoSliderController">
-    <Label fx:id="tempoSectionLabel" text="Tempo" />
+    <Label fx:id="tempoSectionLabel" text="Tempo">
+        <padding>
+            <Insets bottom="10"/>
+        </padding>
+    </Label>
     <Label fx:id="tempoLabel" />
     <Slider fx:id="tempoSlider" prefWidth="300" majorTickUnit="10" minorTickCount="1" showTickMarks="true" showTickLabels="true" snapToTicks="true" />
 </VBox>

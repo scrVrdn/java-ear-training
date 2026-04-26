@@ -18,15 +18,15 @@ public class IntervalService implements MusicObjectService<IntervalType> {
     private final Random rng;
     private final RandomBag<Direction> directionBag;
     private final RandomBag<IntervalType> intervalBag;
-    private final SettingsService<IntervalType> settings;
+    private final SettingsService<IntervalType> settingsService;
 
     private IntervalType cachedInterval;
 
-    public IntervalService(Random rng, RandomDirectionBag directionBag, RandomIntervalBag intervalBag, SettingsService<IntervalType> settings) {
+    public IntervalService(Random rng, RandomDirectionBag directionBag, RandomIntervalBag intervalBag, SettingsService<IntervalType> settingsService) {
         this.rng = rng;
         this.directionBag = directionBag;
         this.intervalBag = intervalBag;
-        this.settings = settings;
+        this.settingsService = settingsService;
     }
 
     @Override
@@ -39,9 +39,9 @@ public class IntervalService implements MusicObjectService<IntervalType> {
     }
 
     private int getRootMidiValue(IntervalType type) {
-        int midiValue = settings.getMinMidiValue() + rng.nextInt(settings.getMaxMidiValue());
-        if (midiValue + type.getSemitones() > settings.getMaxMidiValue()) {
-            midiValue = settings.getMaxMidiValue() - type.getSemitones();
+        int midiValue = settingsService.getMinMidiValue() + rng.nextInt(settingsService.getMaxMidiValue());
+        if (midiValue + type.getSemitones() > settingsService.getMaxMidiValue()) {
+            midiValue = settingsService.getMaxMidiValue() - type.getSemitones();
         }
 
         return midiValue;

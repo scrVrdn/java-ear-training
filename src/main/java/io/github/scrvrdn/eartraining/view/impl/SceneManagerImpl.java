@@ -34,7 +34,7 @@ public class SceneManagerImpl implements SceneManager, ApplicationListener<Stage
     @Value("classpath:css/style.css")
     private Resource styleResource;
 
-    private ApplicationContext context;
+    private final ApplicationContext context;
     private final Map<SceneType, Scene> cachedScenes = new HashMap<>();
     private Stage stage;
 

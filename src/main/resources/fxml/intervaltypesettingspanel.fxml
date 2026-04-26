@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="intervalTypePane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.scrvrdn.eartraining.controls.IntervalTypeSettingsPanel">
-    <Label text="Intervals"/>
+<VBox fx:id="intervalTypePane" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="io.github.scrvrdn.eartraining.controls.IntervalTypeSettingsPanel">
+    <Label text="Intervals" />
     <HBox alignment="CENTER">
         
         <VBox alignment="CENTER_LEFT" styleClass="vbox">
-            <CheckBox fx:id="selectAll" text="Select All" onAction="#selectAll" style="-fx-padding: 0 0 10 0;"/>
+            <CheckBox fx:id="selectAll" onAction="#selectAll" style="-fx-padding: 0 0 10 0;" text="Select All" />
 
-            <CheckBox fx:id="unison" text="Unison" onAction="#setIntervalType"/>
-            <CheckBox fx:id="minSecond" text="Minor Second" onAction="#setIntervalType"/>
-            <CheckBox fx:id="majSecond" text="Major Second" onAction="#setIntervalType"/>
-            <CheckBox fx:id="minThird" text="Minor Third" onAction="#setIntervalType"/>
-            <CheckBox fx:id="majThird" text="Major Third" onAction="#setIntervalType"/>
-            <CheckBox fx:id="fourth" text="Perfect Fourth" onAction="#setIntervalType"/>
-            <CheckBox fx:id="tritone" text="Tritone" onAction="#setIntervalType"/>
-            <CheckBox fx:id="fifth" text="Perfect Fifth" onAction="#setIntervalType"/>
-            <CheckBox fx:id="minSixth" text="Minor Sixth" onAction="#setIntervalType"/>
-            <CheckBox fx:id="majSixth" text="Major Sixth" onAction="#setIntervalType"/>                
+            <CheckBox fx:id="unison" onAction="#setIntervalType" text="Unison" />
+            <CheckBox fx:id="minSecond" onAction="#setIntervalType" text="Minor Second" />
+            <CheckBox fx:id="majSecond" onAction="#setIntervalType" text="Major Second" />
+            <CheckBox fx:id="minThird" onAction="#setIntervalType" text="Minor Third" />
+            <CheckBox fx:id="majThird" onAction="#setIntervalType" text="Major Third" />
+            <CheckBox fx:id="fourth" onAction="#setIntervalType" text="Perfect Fourth" />
+            <CheckBox fx:id="tritone" onAction="#setIntervalType" text="Tritone" />
+            <CheckBox fx:id="fifth" onAction="#setIntervalType" text="Perfect Fifth" />
+            <CheckBox fx:id="minSixth" onAction="#setIntervalType" text="Minor Sixth" />
+            <CheckBox fx:id="majSixth" onAction="#setIntervalType" text="Major Sixth" />
+         <padding>
+            <Insets right="20.0" top="10.0" />
+         </padding>                
         </VBox>
 
         <VBox alignment="CENTER_LEFT" styleClass="vbox">
-            <CheckBox fx:id="deselectAll" text="Deselect All" onAction="#deselectAll" style="-fx-padding: 0 0 10 0;"/>
+            <CheckBox fx:id="deselectAll" onAction="#deselectAll" style="-fx-padding: 0 0 10 0;" text="Deselect All" />
 
-            <CheckBox fx:id="minSeventh" text="Minor Seventh" onAction="#setIntervalType"/>
-            <CheckBox fx:id="majSeventh" text="Major Seventh" onAction="#setIntervalType"/>
-            <CheckBox fx:id="octave" text="Perfect Octave" onAction="#setIntervalType"/>
-            <CheckBox fx:id="minNinth" text="Minor Ninth" onAction="#setIntervalType"/>
-            <CheckBox fx:id="majNinth" text="Major Ninth" onAction="#setIntervalType"/>
-            <CheckBox fx:id="minTenth" text="Minor Tenth" onAction="#setIntervalType"/>
-            <CheckBox fx:id="majTenth" text="Major Tenth" onAction="#setIntervalType"/>
-            <CheckBox fx:id="eleventh" text="Perfect Eleventh" onAction="#setIntervalType"/>
-            <CheckBox fx:id="augEleventh" text="Augmented Eleventh" onAction="#setIntervalType"/>
-            <CheckBox fx:id="twelfth" text="Perfect Twelfth" onAction="#setIntervalType"/>
+            <CheckBox fx:id="minSeventh" onAction="#setIntervalType" text="Minor Seventh" />
+            <CheckBox fx:id="majSeventh" onAction="#setIntervalType" text="Major Seventh" />
+            <CheckBox fx:id="octave" onAction="#setIntervalType" text="Perfect Octave" />
+            <CheckBox fx:id="minNinth" onAction="#setIntervalType" text="Minor Ninth" />
+            <CheckBox fx:id="majNinth" onAction="#setIntervalType" text="Major Ninth" />
+            <CheckBox fx:id="minTenth" onAction="#setIntervalType" text="Minor Tenth" />
+            <CheckBox fx:id="majTenth" onAction="#setIntervalType" text="Major Tenth" />
+            <CheckBox fx:id="eleventh" onAction="#setIntervalType" text="Perfect Eleventh" />
+            <CheckBox fx:id="augEleventh" onAction="#setIntervalType" text="Augmented Eleventh" />
+            <CheckBox fx:id="twelfth" onAction="#setIntervalType" text="Perfect Twelfth" />
+         <padding>
+            <Insets top="10.0" />
+         </padding>
         </VBox>
     </HBox>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
 </VBox>

@@ -7,14 +7,16 @@ import io.github.scrvrdn.eartraining.domain.IntervalType;
 import io.github.scrvrdn.eartraining.services.EarTrainingService;
 import io.github.scrvrdn.eartraining.view.SceneManager;
 import io.github.scrvrdn.eartraining.view.scenetypes.SceneType;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 @Controller
-public class IntervalSectionController {
+public class IntervalExerciseController {
 
     @FXML Button backToMainManuButton;
     @FXML Button goToSettingsButton;
+    @FXML Button startButton;
     @FXML Button nextIntervalButton;
     @FXML Button replayIntervalButton;
 
@@ -22,7 +24,7 @@ public class IntervalSectionController {
     private final SceneManager sceneManager;
     private final IntervalButtonPanel answerButtons;
 
-    public IntervalSectionController(SceneManager sceneManager, EarTrainingService earTrainingService, IntervalButtonPanel answerButtons) {
+    public IntervalExerciseController(SceneManager sceneManager, EarTrainingService earTrainingService, IntervalButtonPanel answerButtons) {
         this.earTrainingService = earTrainingService;
         this.sceneManager = sceneManager;
         this.answerButtons = answerButtons;
@@ -30,7 +32,7 @@ public class IntervalSectionController {
 
     @FXML
     private void initialize() {
-        answerButtons.setCallback(this::handleAnswerButton);
+        answerButtons.setPredicate(this::handleAnswerButton);
     }
 
     @FXML
@@ -44,15 +46,21 @@ public class IntervalSectionController {
     }
 
     @FXML
-    private void handleNextIntervalButton() {
-        answerButtons.resetButtonColors();
+    private void handleStartButton(ActionEvent event) {
+        nextIntervalButton.setDisable(false);
+        replayIntervalButton.setDisable(false);
+        startButton.setDisable(true);
+        answerButtons.setRunning(true);
+        handleNextIntervalButton();
+    }
 
+    @FXML
+    private void handleNextIntervalButton() {
         try {
           earTrainingService.playNewInterval();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        
+        }        
     }
 
     @FXML
@@ -64,11 +72,14 @@ public class IntervalSectionController {
         }
     }
 
-    private  void handleAnswerButton(IntervalType interval) {
-        if (earTrainingService.isLastInterval(interval)) {
+    private boolean handleAnswerButton(IntervalType interval) {
+
+        boolean isCorrect = earTrainingService.isLastInterval(interval);
+        if (isCorrect) {
             handleNextIntervalButton();
-        } else {
-            answerButtons.setColorToRed(interval);
+            return true;
         }
+
+        return false;
     }
 }

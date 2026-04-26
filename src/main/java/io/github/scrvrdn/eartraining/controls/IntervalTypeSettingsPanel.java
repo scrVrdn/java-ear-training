@@ -3,6 +3,7 @@ package io.github.scrvrdn.eartraining.controls;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
@@ -102,9 +103,23 @@ public class IntervalTypeSettingsPanel {
         this.removeIntervalCallback = callback;
     }
 
-    public void toggleCheckbox(IntervalType interval) {
+    public void checkCheckbox(IntervalType interval) {
         CheckBox cb = intervalMap.get(interval);
-        cb.setSelected(!cb.isSelected());
+        cb.setSelected(true);
+    }
+
+    public void uncheckAll() {
+        intervalMap.values().forEach(cb -> cb.setSelected(false));
+    }
+
+    public void toggleCheckboxes(Predicate<IntervalType> selectionPredicate) {
+        selectAll.setSelected(false);
+        deselectAll.setSelected(false);
+        intervalMap.values()
+                    .forEach(
+                        cb -> cb.setSelected(
+                            selectionPredicate.test((IntervalType) cb.getUserData())
+                    ));
     }
 
     @FXML
@@ -127,23 +142,25 @@ public class IntervalTypeSettingsPanel {
 
     @FXML
     private void deselectAll() {
-        for (IntervalType interval : intervalMap.keySet()) {
-            removeIntervalCallback.accept(interval);
-        }
+        selectAll.setSelected(false);
 
         for (CheckBox cb : intervalMap.values()) {
-            cb.setSelected(false);
+            if (cb.isSelected()) {
+                cb.setSelected(false);
+                removeIntervalCallback.accept((IntervalType) cb.getUserData());
+            }
         }
     }
 
     @FXML
     private void selectAll() {
-        for (IntervalType interval : intervalMap.keySet()) {
-            addIntervalCallback.accept(interval);
-        }
+        deselectAll.setSelected(false);
 
         for (CheckBox cb : intervalMap.values()) {
-            cb.setSelected(true);
+            if (!cb.isSelected()) {
+                cb.setSelected(true);
+                addIntervalCallback.accept((IntervalType) cb.getUserData());
+            }
         }
     }
 }

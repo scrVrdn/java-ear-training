@@ -18,7 +18,7 @@ public class PitchRangeController {
 
     }
 
-    void load() {
+    void loadPitchRange() {
         pitchRangePanel.setMaxPitch(settingsService.getMaxMidiValue());
         pitchRangePanel.setMinPitch(settingsService.getMinMidiValue());
     }

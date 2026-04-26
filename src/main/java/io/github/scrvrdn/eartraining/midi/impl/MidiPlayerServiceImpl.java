@@ -20,6 +20,7 @@ public class MidiPlayerServiceImpl implements MidiPlayerService {
 
     private Track cachedTrack;
     private Sequencer sequencer;
+    private float tempoInBPM;
 
     public MidiPlayerServiceImpl(Sequencer sequencer) {
         this.sequencer = sequencer;
@@ -31,11 +32,12 @@ public class MidiPlayerServiceImpl implements MidiPlayerService {
             throw new ClosedSequencerException();
         }
 
-        if (sequencer.isRunning()) {
+        if (sequencer.isRunning()) {            
             sequencer.stop();
         }
         
         sequencer.setTickPosition(0);
+        sequencer.setTempoInBPM(tempoInBPM);
         sequencer.start();
     }
 
@@ -48,12 +50,11 @@ public class MidiPlayerServiceImpl implements MidiPlayerService {
         if (cachedTrack != null) {
             sequencer.getSequence().deleteTrack(cachedTrack);
         }
-        Sequence sequence = sequencer.getSequence();
-        Track track = sequence.createTrack();
-        for (MidiEvent event : events) {
-            track.add(event);
-        }
-        sequencer.setSequence(sequence);
+
+        Sequence sequence = sequencer.getSequence();        
+        Track track = sequence.createTrack();    
+        events.forEach(track::add);        
+        sequencer.setSequence(sequence);       
         cachedTrack = track;
     }
 
@@ -82,11 +83,11 @@ public class MidiPlayerServiceImpl implements MidiPlayerService {
 
     @Override
     public float getTempo() {
-        return sequencer.getTempoInBPM();
+        return tempoInBPM;
     }
 
     @Override
-    public void setTempo(float bmp) {
-        sequencer.setTempoInBPM(bmp);
+    public void setTempo(float bpm) {
+        tempoInBPM = bpm;
     }
 }

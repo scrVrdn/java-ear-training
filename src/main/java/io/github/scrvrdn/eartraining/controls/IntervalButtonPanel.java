@@ -2,7 +2,7 @@ package io.github.scrvrdn.eartraining.controls;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
@@ -35,14 +35,20 @@ public class IntervalButtonPanel {
     @FXML private Button augEleventh;
     @FXML private Button twelfth;
 
-    private final Map<IntervalType, Button> buttons = new HashMap<>();
-    private Consumer<IntervalType> callback;
+    //private Button[] buttonArray;
+    private final Map<IntervalType, Button> intervalMap = new HashMap<>();
 
+    private Predicate<IntervalType> predicate;
+    private boolean isRunning = false;
+
+  
 
     @FXML
     private void initialize() {
         addIntervalTypeToButtons();
-        initButtonMap();
+        initIntervalMap();
+
+        // buttonArray = new Button[]{unison, minSecond, majSecond, minThird, majThird, fourth, tritone, fifth, minSixth, majSixth, minSeventh, majSeventh, octave, minNinth, majNinth, minTenth, majTenth, eleventh, augEleventh, twelfth};
     }
 
     private void addIntervalTypeToButtons() {
@@ -68,53 +74,78 @@ public class IntervalButtonPanel {
             twelfth.setUserData(IntervalType.PERFECT_TWELFTH);
     }
 
-    private void initButtonMap() {
-        buttons.put(IntervalType.UNISON, unison);
-        buttons.put(IntervalType.MINOR_SECOND, minSecond);
-        buttons.put(IntervalType.MAJOR_SECOND, majSecond);
-        buttons.put(IntervalType.MINOR_THIRD, minThird);
-        buttons.put(IntervalType.MAJOR_THIRD, majThird);
-        buttons.put(IntervalType.PERFECT_FOURTH, fourth);
-        buttons.put(IntervalType.TRITONE, tritone);
-        buttons.put(IntervalType.PERFECT_FIFTH, fifth);    
-        buttons.put(IntervalType.MINOR_SIXTH, minSixth);
-        buttons.put(IntervalType.MAJOR_SIXTH, majSixth);
-        buttons.put(IntervalType.MINOR_SEVENTH, minSeventh);
-        buttons.put(IntervalType.MAJOR_SEVENTH, majSeventh);
-        buttons.put(IntervalType.OCTAVE, octave);
-        buttons.put(IntervalType.MINOR_NINTH, minNinth);
-        buttons.put(IntervalType.MAJOR_NINTH, majNinth);
-        buttons.put(IntervalType.MINOR_TENTH, minTenth);
-        buttons.put(IntervalType.MAJOR_TENTH, majTenth);
-        buttons.put(IntervalType.PERFECT_ELEVENTH, eleventh);
-        buttons.put(IntervalType.AUGMENTED_ELEVENTH, augEleventh);
-        buttons.put(IntervalType.PERFECT_TWELFTH, twelfth);
+     private void initIntervalMap() {
+        intervalMap.put(IntervalType.UNISON, unison);
+        intervalMap.put(IntervalType.MINOR_SECOND, minSecond);
+        intervalMap.put(IntervalType.MAJOR_SECOND, majSecond);
+        intervalMap.put(IntervalType.MINOR_THIRD, minThird);
+        intervalMap.put(IntervalType.MAJOR_THIRD, majThird);
+        intervalMap.put(IntervalType.PERFECT_FOURTH, fourth);
+        intervalMap.put(IntervalType.TRITONE, tritone);
+        intervalMap.put(IntervalType.PERFECT_FIFTH, fifth);    
+        intervalMap.put(IntervalType.MINOR_SIXTH, minSixth);
+        intervalMap.put(IntervalType.MAJOR_SIXTH, majSixth);
+        intervalMap.put(IntervalType.MINOR_SEVENTH, minSeventh);
+        intervalMap.put(IntervalType.MAJOR_SEVENTH, majSeventh);
+        intervalMap.put(IntervalType.OCTAVE, octave);
+        intervalMap.put(IntervalType.MINOR_NINTH, minNinth);
+        intervalMap.put(IntervalType.MAJOR_NINTH, majNinth);
+        intervalMap.put(IntervalType.MINOR_TENTH, minTenth);
+        intervalMap.put(IntervalType.MAJOR_TENTH, majTenth);
+        intervalMap.put(IntervalType.PERFECT_ELEVENTH, eleventh);
+        intervalMap.put(IntervalType.AUGMENTED_ELEVENTH, augEleventh);
+        intervalMap.put(IntervalType.PERFECT_TWELFTH, twelfth);
     }
 
-    
-
-    public void setCallback(Consumer<IntervalType> callback) {
-        this.callback = callback;
+    public void setPredicate(Predicate<IntervalType> predicate) {
+        this.predicate = predicate;
     }
 
-    public void resetButtonColors() {
-        for (Button button : buttons.values()) {
+    public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    public void toggleButtons(Predicate<IntervalType> disabled) {
+        for (Button button : intervalMap.values()) {
+            button.setDisable(disabled.test((IntervalType) button.getUserData()));
+        }        
+    }
+
+    public void enable(IntervalType interval) {
+        Button button = intervalMap.get(interval);
+        button.setDisable(false);
+    }
+
+    public void disable(IntervalType interval) {
+        Button button = intervalMap.get(interval);
+        button.setDisable(true);
+    }
+    @FXML
+    private void handleAnswerButton(ActionEvent event) {
+        if (!isRunning) {
+            return;
+        }
+
+        Button button = (Button) event.getSource();
+        boolean isCorrect = predicate.test((IntervalType) button.getUserData());
+        if (!isCorrect) {
+            setColorToRed(button);
+        } else {
+            resetButtonColors();
+        }
+    }
+
+    private void setColorToRed(Button button) {
+        if (!button.getStyleClass().contains("wrong-answer")) {
+            button.getStyleClass().add("wrong-answer");
+        } 
+    }
+
+    private void resetButtonColors() {
+        for (Button button : intervalMap.values()) {
             button.getStyleClass().remove("wrong-answer");
         }
     }
 
-    public void setColorToRed(IntervalType interval) {
-        Button button = buttons.get(interval);
-        if (!button.getStyleClass().contains("wrong-answer")) {
-            button.getStyleClass().add("wrong-answer");
-        }        
-    }
-
-    @FXML
-    private void handleAnswerButton(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        callback.accept((IntervalType) button.getUserData());
-    }
-
-    
+   
 }

@@ -3,6 +3,7 @@ package io.github.scrvrdn.eartraining.controls;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
@@ -43,9 +44,10 @@ public class DirectionsPanel {
         removeDirectionCallback = callback;
     }
 
-    public void toggleCheckBox(Direction dir) {
-        CheckBox cb = directionMap.get(dir);
-        cb.setSelected(!cb.isSelected());
+    public void toggleCheckBoxes(Predicate<Direction> selectionPredicate) {
+        ascendingCb.setSelected(selectionPredicate.test(Direction.ASCENDING));
+        descendingCb.setSelected(selectionPredicate.test(Direction.DESCENDING));
+        simultaneousCb.setSelected(selectionPredicate.test(Direction.SIMULTANEOUS));
     }
 
     @FXML

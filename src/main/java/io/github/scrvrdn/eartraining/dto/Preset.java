@@ -1,43 +1,42 @@
 package io.github.scrvrdn.eartraining.dto;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import io.github.scrvrdn.eartraining.domain.Direction;
 
-public class Preset<T> {
-    private final Set<T> musicObjects = new HashSet<>();
-    private final Set<Direction> directions = new HashSet<>();
+public abstract class Preset {
+    private int id;
+    private String name;
+    private Set<Direction> directions = new HashSet<>();
     private int maxMidiValue;
     private int minMidiValue;
     private float tempoInBPM;
 
     
-    public Set<T> getAll() {
-        
-        return Collections.unmodifiableSet(musicObjects);
+
+    public int getId() {
+        return id;
     }
 
-    public void addAll(List<T> list) {
-        musicObjects.clear();
-        for (T musicObject : list) {
-            
-            musicObjects.add(musicObject);
-        }
-        
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Set<Direction> getAllDirections() {
-        return Collections.unmodifiableSet(directions);
+    public String getName() {
+        return name;
     }
 
-    public void addAllDirections(List<Direction> list) {
-        musicObjects.clear();
-        for (Direction dir : list) {
-            directions.add(dir);
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Direction> getDirections() {
+        return directions;
+    }
+
+    public void setDirections(Set<Direction> directions) {
+        this.directions = directions;
     }
 
     public int getMaxMidiValue() {
@@ -63,5 +62,9 @@ public class Preset<T> {
     public void setTempoInBPM(float tempoInBPM) {
         this.tempoInBPM = tempoInBPM;
     }
+
+    public abstract Preset deepCopy();
+
+ 
     
 }
