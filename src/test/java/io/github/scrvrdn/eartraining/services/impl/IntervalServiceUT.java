@@ -15,7 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import io.github.scrvrdn.eartraining.containers.RandomBag;
+import io.github.scrvrdn.eartraining.containers.RandomDirectionBag;
+import io.github.scrvrdn.eartraining.containers.RandomIntervalBag;
 import io.github.scrvrdn.eartraining.domain.Direction;
 import io.github.scrvrdn.eartraining.domain.IntervalType;
 import io.github.scrvrdn.eartraining.dto.TrackRequest;
@@ -27,10 +28,10 @@ public class IntervalServiceUT {
     private Random rng;
 
     @Mock
-    private RandomBag<Direction> directionBag;
+    private RandomDirectionBag directionBag;
 
     @Mock
-    private RandomBag<IntervalType> intervalBag;
+    private RandomIntervalBag intervalBag;
 
     @Mock
     private SettingsService<IntervalType> settings;
@@ -46,7 +47,7 @@ public class IntervalServiceUT {
         int max = 120;
         when(settings.getMinMidiValue()).thenReturn(min);
         when(settings.getMaxMidiValue()).thenReturn(max);
-        when(rng.nextInt(max)).thenReturn(60);
+        when(rng.nextInt(max - min + 1)).thenReturn(60);
         int[] expectedMidiValues = {90, 107};
 
         TrackRequest result = underTest.createRandomRequest();
@@ -63,7 +64,7 @@ public class IntervalServiceUT {
         int max = 87;
         when(settings.getMinMidiValue()).thenReturn(min);
         when(settings.getMaxMidiValue()).thenReturn(max);
-        when(rng.nextInt(max)).thenReturn(60);
+        when(rng.nextInt(max - min + 1)).thenReturn(49);
         int[] expectedMidiValues = {max - IntervalType.PERFECT_ELEVENTH.getSemitones(), max};
 
         TrackRequest result = underTest.createRandomRequest();

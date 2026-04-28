@@ -8,9 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.scrvrdn.eartraining.dto.IntervalPreset;
 
 public class SettingsFile {
-   // private Map<String, IntervalPreset> intervalPresets;
     private Map<Integer, IntervalPreset> intervalPresets;
-    // private String currentIntervalPresetName;
     private Integer currentIntervalPresetId;
     private PresetIdGenerator idGenerator;
 

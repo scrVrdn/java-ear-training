@@ -39,7 +39,7 @@ public class IntervalService implements MusicObjectService<IntervalType> {
     }
 
     private int getRootMidiValue(IntervalType type) {
-        int midiValue = settingsService.getMinMidiValue() + rng.nextInt(settingsService.getMaxMidiValue());
+        int midiValue = settingsService.getMinMidiValue() + rng.nextInt(settingsService.getMaxMidiValue() - settingsService.getMinMidiValue() + 1);
         if (midiValue + type.getSemitones() > settingsService.getMaxMidiValue()) {
             midiValue = settingsService.getMaxMidiValue() - type.getSemitones();
         }
